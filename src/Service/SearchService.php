@@ -85,15 +85,16 @@ class SearchService
         $search = $this->searchUtils->getESearch();
 
         $params = [
+            "scroll" => "30s",          // 设置游标查询过期时间，不应该太长
+            "size" => $limit,           // 返回多少数量的文档，作用于单个分片
+            "from" => $offset,
             'index' => 'flarum',
-            'type' => 'post',
             'body' => [
-                "scroll" => "30s",          // 设置游标查询过期时间，不应该太长
-                "size" => $limit,               // 返回多少数量的文档，作用于单个分片
-                "from" => $offset,
-                'multi_match' => [
-                    'query' => $query,
-                    'fields' => ["title", "content"]
+                "query" => [
+                    'multi_match' => [
+                        'query' => $query,
+                        'fields' => ["title", "content"]
+                    ]
                 ],
                 // TODO 排序
                 // lastPostedAt
@@ -160,7 +161,6 @@ class SearchService
         // 删除当前记录
         $search->delete([
             'index' => 'flarum',
-            'type' => 'post',
             'id' => $post->id,
         ]);
         // 更新其他记录的count
@@ -196,7 +196,6 @@ class SearchService
         foreach ($posts as $item) {
             $search->delete([
                 'index' => 'flarum',
-                'type' => 'post',
                 'id' => $item->id,
             ]);
         }
