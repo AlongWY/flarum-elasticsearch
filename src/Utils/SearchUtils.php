@@ -10,9 +10,26 @@ use Flarum\Post\Post;
 
 class SearchUtils
 {
+    private $client;
+
+    function __construct()
+    {
+        $hosts = [
+            [
+                'host' => getenv('ES_HOST'),
+                'port' => getenv('ES_PORT'),
+                'scheme' => getenv('ES_SCHEME')
+            ],
+        ];
+        $client = ClientBuilder::create()
+            ->setHosts($hosts)
+            ->build();
+        $this->client = $client;
+    }
+
     function getESearch(): Client
     {
-        return ClientBuilder::create()->build();
+        return $this->client;
     }
 
     // 构造文档
