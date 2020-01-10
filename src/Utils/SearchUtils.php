@@ -2,29 +2,44 @@
 
 namespace Plugin\ESearch\Utils;
 
+use Flarum\Discussion\Discussion;
+use Flarum\Post\Post;
+use Flarum\Settings\SettingsRepositoryInterface;
+
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 
-use Flarum\Discussion\Discussion;
-use Flarum\Post\Post;
 
 class SearchUtils
 {
-    private $client;
+    /**
+     * @var SettingsRepositoryInterface
+     */
+    protected $settings;
 
-    function __construct()
+    /**
+     * @var string $settingsPrefix
+     */
+    public $settingsPrefix = 'alongwy-es.';
+
+    /**
+     * LoadSettingsFromDatabase constructor
+     *
+     * @param SettingsRepositoryInterface $settings
+     */
+    public function __construct(SettingsRepositoryInterface $settings)
     {
+        $this->settings = $settings;
         $hosts = [
             [
-                'host' => getenv('ES_HOST'),
-                'port' => getenv('ES_PORT'),
-                'scheme' => getenv('ES_SCHEME')
+                'host' => $this->settings->get($this->settingsPrefix . 'host', "elasticsearch"),
+                'port' => $this->settings->get($this->settingsPrefix . 'port', 9200),
+                'scheme' => $this->settings->get($this->settingsPrefix . 'scheme', "http")
             ],
         ];
-        $client = ClientBuilder::create()
+        $this->client = ClientBuilder::create()
             ->setHosts($hosts)
             ->build();
-        $this->client = $client;
     }
 
     function getESearch(): Client

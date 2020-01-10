@@ -47,7 +47,7 @@ class SearchController extends ListDiscussionsController
         $results = $this->searchService->search($query, $limit, $offset, $sort);
 
         $document->addPaginationLinks(
-            $this->url->to('api')->route('xun.discussions.index'),
+            $this->url->to('api')->route('es.discussions.index'),
             $request->getQueryParams(),
             $offset,
             $limit,
