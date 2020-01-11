@@ -4,6 +4,7 @@ namespace Plugin\ESearch;
 
 use Flarum\Extend;
 use Illuminate\Contracts\Events\Dispatcher;
+use Plugin\ESearch\Utils\LoadSettings;
 use Plugin\ESearch\Controller\SearchController;
 
 return [
@@ -15,6 +16,7 @@ return [
     (new Extend\Routes('api'))
         ->get('/es/discussions', 'es.discussions.index', SearchController::class),
     function (Dispatcher $events) {
+        $events->subscribe(LoadSettings::class);
         $events->subscribe(SearchDispatcher::class);
     }
 ];
