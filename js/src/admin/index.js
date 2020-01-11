@@ -1,5 +1,5 @@
 import app from 'flarum/app';
-import ESettingsModal from "./models/ESettingsModel";
+import ESettingsModal from "./modals/ESettingsModal";
 
 // initialize settings modal
 app.initializers.add('alongwy-es', () => {
