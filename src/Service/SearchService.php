@@ -107,9 +107,11 @@ class SearchService
         $searched = $search->search($params);
 
         foreach ($searched['hits']['hits'] as $item) {
-            $discId = $item["discId"];
-            $tempData[$discId] = array("id" => $discId, "postIds" => array());
-            array_push($tempData[$discId]["postIds"], $item["id"]);
+            $discId = $item["_source"]["discId"];
+            if (!key_exists($discId, $tempData)) {
+                $tempData[$discId] = array("id" => $discId, "postIds" => array());
+            }
+            array_push($tempData[$discId]["postIds"], intval($item["_id"]));
         }
 
         return $tempData;

@@ -37,7 +37,9 @@ class SearchUtils
                 'scheme' => $this->settings->get($this->settingsPrefix . 'scheme', "http")
             ],
         ];
-        $client = ClientBuilder::create()->setHosts($hosts)->build();
+        $client = ClientBuilder::create()
+            ->setHosts($hosts)
+            ->build();
 
 
         $indexParams['index'] = "flarum";
@@ -95,12 +97,15 @@ class SearchUtils
             'index' => 'flarum',
             'id' => $post->id,
             'body' => [
-                "discId" => $discussion->id,
-                "title" => $discussion->title,
-                "content" => $post->content,
-                "time" => strtotime($post->created_at),
-                "discTime" => strtotime($post->discussion->created_at),
-                "count" => $count
+                'doc' => [
+                    "discId" => $discussion->id,
+                    "title" => $discussion->title,
+                    "content" => $post->content,
+                    "time" => strtotime($post->created_at),
+                    "discTime" => strtotime($post->discussion->created_at),
+                    "count" => $count
+                ],
+                "doc_as_upsert" => true
             ]
         ];
         return $data;

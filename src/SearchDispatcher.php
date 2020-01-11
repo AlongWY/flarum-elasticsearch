@@ -69,7 +69,7 @@ class SearchDispatcher
                 $this->searchUtils->buildESDocument(
                     $event->post->discussion,
                     $event->post,
-                    $event->post->discussion->comments_count
+                    $event->post->discussion->comment_count
                 ));
         }
     }
