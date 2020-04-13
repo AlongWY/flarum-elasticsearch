@@ -1,0 +1,11 @@
+alongwy-es:
+  admin:
+    settings:
+      title: Elasticsearch
+      ESOptionsHeading: Setting
+      host: Host
+      hostHelp: Elasticsearch Host
+      port: Port
+      portHelp: Elasticsearch Port
+      scheme: Scheme
+      schemeHelp: Elasticsearch Scheme (http/https)
