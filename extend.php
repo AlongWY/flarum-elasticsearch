@@ -9,11 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Alongwy\FlarumElasticsearch;
+namespace Plugin\ESearch;
 
 use Flarum\Extend;
 use Illuminate\Contracts\Events\Dispatcher;
-use Plugin\ESearch\SearchDispatcher;
 use Plugin\ESearch\Utils\LoadSettings;
 use Plugin\ESearch\Controller\SearchController;
 
