@@ -83,7 +83,7 @@ class SearchService
     {
         $tempData = [];
         $search = $this->searchUtils->getESearch();
-
+        if ($search == null) return $tempData; // do nothing
         $params = [
             "scroll" => "30s",          // 设置游标查询过期时间，不应该太长
             "size" => $limit,           // 返回多少数量的文档，作用于单个分片
@@ -149,7 +149,7 @@ class SearchService
     {
         $posts = $this->getPostsByDiscussionId($post->discussion_id);
         $search = $this->searchUtils->getESearch();
-
+        if ($search == null) return; // do nothing
         foreach ($posts as $item) {
             $doc = $this->searchUtils->buildESDocument($post->discussion, $item, $posts->count());
             $search->update($doc);
@@ -160,6 +160,7 @@ class SearchService
     function deletePostToIndex(Post $post)
     {
         $search = $this->searchUtils->getESearch();
+        if ($search == null) return; // do nothing
         // 删除当前记录
         $search->delete([
             'index' => 'flarum',
@@ -178,7 +179,7 @@ class SearchService
     {
         // 获取索引
         $search = $this->searchUtils->getESearch();
-
+        if ($search == null) return; // do nothing
         // 更新所有记录
         $posts = $this->getPostsByDiscussionId($discussion->id);
         foreach ($posts as $item) {
@@ -192,7 +193,7 @@ class SearchService
     {
         // 获取索引
         $search = $this->searchUtils->getESearch();
-
+        if ($search == null) return; // do nothing
         // 更新所有记录
         $posts = $this->getPostsByDiscussionId($discussion->id);
         foreach ($posts as $item) {
@@ -208,6 +209,7 @@ class SearchService
     {
         // 获取索引
         $search = $this->searchUtils->getESearch();
+        if ($search == null) return; // do nothing
         // 更新所有记录
         $posts = $this->getPostsByDiscussionId($discussion->id);
         foreach ($posts as $item) {

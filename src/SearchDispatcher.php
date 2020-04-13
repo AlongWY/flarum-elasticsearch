@@ -64,6 +64,7 @@ class SearchDispatcher
     function revised(Revised $event)
     {
         $search = $this->searchUtils->getESearch();
+        if ($search == null) return; // do nothing
         if ($event->post->type === "comment") {
             $search->update(
                 $this->searchUtils->buildESDocument(

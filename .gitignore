@@ -65,3 +65,6 @@ js/forum/package-lock.json
 /vendor
 /js/node_modules
 /.idea
+
+/composer.lock
+/js/package-lock.json

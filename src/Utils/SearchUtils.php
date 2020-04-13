@@ -8,6 +8,7 @@ use Flarum\Settings\SettingsRepositoryInterface;
 
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
+use Elasticsearch\Common\Exceptions\ElasticsearchException;
 
 
 class SearchUtils
@@ -21,6 +22,10 @@ class SearchUtils
      * @var string $settingsPrefix
      */
     public $settingsPrefix = 'alongwy-es.';
+    /**
+     * @var Client
+     */
+    private $client;
 
     /**
      * LoadSettingsFromDatabase constructor
@@ -37,52 +42,56 @@ class SearchUtils
                 'scheme' => $this->settings->get($this->settingsPrefix . 'scheme', "http")
             ],
         ];
-        $client = ClientBuilder::create()
-            ->setHosts($hosts)
-            ->build();
+
+        try {
+            $client = ClientBuilder::create()
+                ->setHosts($hosts)
+                ->build();
 
 
-        $indexParams['index'] = "flarum";
-        $exists = $client->indices()->exists($indexParams);
-        if (!($exists)) {
-            $client->indices()->create([
-                'index' => 'flarum',
-                'body' => [
-                    'settings' => [
-                        'number_of_shards' => $this->settings->get($this->settingsPrefix . 'number_of_shards', 5),
-                        'number_of_replicas' => $this->settings->get($this->settingsPrefix . 'number_of_replicas', 1)
-                    ],
-                    "mappings" => [
-                        'properties' => [
-                            'title' => [
-                                "type" => "text",
-                                "analyzer" => "ik_max_word",
-                                "search_analyzer" => "ik_smart"
-                            ],
-                            "content" => [
-                                "type" => "text",
-                                "analyzer" => "ik_max_word",
-                                "search_analyzer" => "ik_smart"
-                            ],
-                            'discId' => [
-                                'type' => 'integer'
-                            ],
-                            "count" => [
-                                'type' => 'integer'
-                            ],
-                            "time" => [
-                                "type" => "date"
-                            ],
-                            "discTime" => [
-                                "type" => "date"
-                            ],
+            $indexParams['index'] = "flarum";
+            $exists = $client->indices()->exists($indexParams);
+            if (!($exists)) {
+                $client->indices()->create([
+                    'index' => 'flarum',
+                    'body' => [
+                        'settings' => [
+                            'number_of_shards' => $this->settings->get($this->settingsPrefix . 'number_of_shards', 5),
+                            'number_of_replicas' => $this->settings->get($this->settingsPrefix . 'number_of_replicas', 1)
+                        ],
+                        "mappings" => [
+                            'properties' => [
+                                'title' => [
+                                    "type" => "text",
+                                    "analyzer" => "ik_max_word",
+                                    "search_analyzer" => "ik_smart"
+                                ],
+                                "content" => [
+                                    "type" => "text",
+                                    "analyzer" => "ik_max_word",
+                                    "search_analyzer" => "ik_smart"
+                                ],
+                                'discId' => [
+                                    'type' => 'integer'
+                                ],
+                                "count" => [
+                                    'type' => 'integer'
+                                ],
+                                "time" => [
+                                    "type" => "date"
+                                ],
+                                "discTime" => [
+                                    "type" => "date"
+                                ],
+                            ]
                         ]
                     ]
-                ]
-            ]);
+                ]);
+            }
+            $this->client = $client;
+        } catch (ElasticsearchException $e) {
+            $this->client = null;
         }
-
-        $this->client = $client;
     }
 
     function getESearch(): Client
