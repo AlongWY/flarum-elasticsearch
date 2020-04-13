@@ -6,6 +6,10 @@ const settingsPrefix = 'alongwy-es.';
 const translationPrefix = 'alongwy-es.admin.settings.';
 
 export default class ESettingsModal extends SettingsModal {
+    className() {
+        return 'ESettingsModal Modal';
+    }
+
     title() {
         return app.translator.trans(translationPrefix + 'title');
     }

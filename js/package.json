@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "flarum": "^1.0.2",
     "flarum-webpack-config": "0.1.0-beta.10",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.1.2"

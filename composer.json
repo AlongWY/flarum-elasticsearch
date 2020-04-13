@@ -27,9 +27,9 @@
     "flarum-extension": {
       "title": "Elasticsearch for Flarum by Alongwy",
       "icon": {
-        "name": "",
-        "backgroundColor": "",
-        "color": ""
+        "name": "fas fa-search",
+        "backgroundColor": "#1c141f",
+        "color": "#8e24aa"
       }
     },
     "flagrow": {
