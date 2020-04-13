@@ -32,7 +32,7 @@ class SearchUtils
         $this->settings = $settings;
         $hosts = [
             [
-                'host' => $this->settings->get($this->settingsPrefix . 'host', "elasticsearch"),
+                'host' => $this->settings->get($this->settingsPrefix . 'host', "localhost"),
                 'port' => $this->settings->get($this->settingsPrefix . 'port', 9200),
                 'scheme' => $this->settings->get($this->settingsPrefix . 'scheme', "http")
             ],

@@ -24,7 +24,7 @@ export default class ESettingsModal extends SettingsModal {
                 m('.helpText', app.translator.trans(translationPrefix + 'hostHelp')),
                 m('input[type=text].FormControl', {
                     bidi: this.setting(settingsPrefix + 'host'),
-                    placeholder: 'elasticsearch'
+                    placeholder: 'localhost'
                 })
             ]),
             m('.Form-group', [
