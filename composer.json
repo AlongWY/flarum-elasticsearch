@@ -1,28 +1,37 @@
 {
   "name": "alongwy/flarum-elasticsearch",
-  "description": "chinese search",
-  "version": "0.0.1",
+  "description": "elasticsearch for flarum",
+  "keywords": [
+    "flarum"
+  ],
   "type": "flarum-extension",
-  "license": "apache-2.0",
+  "license": "GPL-3.0",
+  "require": {
+    "flarum/core": "^0.1.0-beta.8"
+  },
   "authors": [
     {
       "name": "alongwy",
-      "email": "alongwyforever@gmail.com"
+      "email": "alongwyforever@outlook.com",
+      "role": "Developer"
     }
   ],
-  "minimum-stability": "beta",
-  "require": {
-    "flarum/core": "^0.1.0-beta.11",
-    "elasticsearch/elasticsearch": "7.5.0"
-  },
   "autoload": {
     "psr-4": {
-      "Plugin\\ESearch\\": "src/"
+      "Alongwy\\FlarumElasticsearch\\": "src/"
     }
   },
   "extra": {
     "flarum-extension": {
-      "title": "Chinese Search"
+      "title": "Elasticsearch for Flarum by Alongwy",
+      "icon": {
+        "name": "",
+        "backgroundColor": "",
+        "color": ""
+      }
+    },
+    "flagrow": {
+      "discuss": ""
     }
   }
 }

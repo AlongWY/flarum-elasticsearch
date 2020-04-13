@@ -1,6 +1,7 @@
 {
+  "name": "@alongwy/flarum-elasticsearch",
+  "version": "0.0.0",
   "private": true,
-  "name": "@jjandxa/flarum-ext-chinese-search",
   "dependencies": {
     "flarum-webpack-config": "0.1.0-beta.10",
     "webpack": "^4.41.5",
