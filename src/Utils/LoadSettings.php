@@ -51,7 +51,7 @@ class LoadSettings
     {
         if ($event->isSerializer(ForumSerializer::class)) {
             $event->attributes += [
-                'host' => (string)$this->settings->get($this->settingsPrefix . 'host', "elasticsearch"),
+                'host' => (string)$this->settings->get($this->settingsPrefix . 'host', "localhost"),
                 'port' => intval($this->settings->get($this->settingsPrefix . 'port', 9200)),
                 'scheme' => (string)$this->settings->get($this->settingsPrefix . 'scheme', "http"),
             ];
