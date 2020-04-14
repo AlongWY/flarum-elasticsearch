@@ -1,4 +1,4 @@
-alongwy-es:
+alongwy-elasticsearch:
   admin:
     settings:
       title: Elasticsearch

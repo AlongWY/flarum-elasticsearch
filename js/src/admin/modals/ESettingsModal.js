@@ -2,8 +2,8 @@ import app from 'flarum/app';
 import SettingsModal from 'flarum/components/SettingsModal';
 
 // just to make things easier
-const settingsPrefix = 'alongwy-es.';
-const translationPrefix = 'alongwy-es.admin.settings.';
+const settingsPrefix = 'alongwy-elasticsearch.';
+const translationPrefix = 'alongwy-elasticsearch.admin.settings.';
 
 export default class ESettingsModal extends SettingsModal {
     className() {

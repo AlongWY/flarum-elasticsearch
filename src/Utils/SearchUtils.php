@@ -21,7 +21,7 @@ class SearchUtils
     /**
      * @var string $settingsPrefix
      */
-    public $settingsPrefix = 'alongwy-es.';
+    public $settingsPrefix = 'alongwy-elasticsearch.';
     /**
      * @var Client
      */

@@ -1,4 +1,7 @@
 # Flarum 论坛中文搜索插件
+
+[![Latest Stable Version](https://img.shields.io/packagist/v/alongwy/flarum-elasticsearch.svg)](https://packagist.org/packages/alongwy/flarum-elasticsearch)
+
 Flarum 论坛中文搜索插件 - 基于 elasticsearch 搜索引擎开发
 
 ### 安装插件

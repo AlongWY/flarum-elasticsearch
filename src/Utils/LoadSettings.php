@@ -19,7 +19,7 @@ class LoadSettings
     /**
      * @var string $settingsPrefix
      */
-    public $settingsPrefix = 'alongwy-es.';
+    public $settingsPrefix = 'alongwy-elasticsearch.';
 
     /**
      * LoadSettingsFromDatabase constructor

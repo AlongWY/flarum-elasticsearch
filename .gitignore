@@ -68,3 +68,4 @@ js/forum/package-lock.json
 
 /composer.lock
 /js/package-lock.json
+/js/yarn.lock
