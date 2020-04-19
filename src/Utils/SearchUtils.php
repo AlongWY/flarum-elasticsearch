@@ -2,6 +2,7 @@
 
 namespace Plugin\ESearch\Utils;
 
+use Exception;
 use Flarum\Discussion\Discussion;
 use Flarum\Post\Post;
 use Flarum\Settings\SettingsRepositoryInterface;
@@ -34,21 +35,18 @@ class SearchUtils
      */
     public function __construct(SettingsRepositoryInterface $settings)
     {
-        $this->settings = $settings;
-        $hosts = [
-            [
-                'host' => $this->settings->get($this->settingsPrefix . 'host', "localhost"),
-                'port' => $this->settings->get($this->settingsPrefix . 'port', 9200),
-                'scheme' => $this->settings->get($this->settingsPrefix . 'scheme', "http")
-            ],
-        ];
-
         try {
+            $this->settings = $settings;
+            $hosts = [
+                [
+                    'host' => $this->settings->get($this->settingsPrefix . 'host', "localhost"),
+                    'port' => $this->settings->get($this->settingsPrefix . 'port', 9200),
+                    'scheme' => $this->settings->get($this->settingsPrefix . 'scheme', "http")
+                ],
+            ];
             $client = ClientBuilder::create()
                 ->setHosts($hosts)
                 ->build();
-
-
             $indexParams['index'] = "flarum";
             $exists = $client->indices()->exists($indexParams);
             if (!($exists)) {
@@ -90,6 +88,8 @@ class SearchUtils
             }
             $this->client = $client;
         } catch (ElasticsearchException $e) {
+            $this->client = null;
+        } catch (Exception $e) {
             $this->client = null;
         }
     }

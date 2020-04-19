@@ -53,19 +53,13 @@ class SearchService
                 }
 
             }
-
             $discussions = $query->get();
-
             $this->loadRelevantPosts($discussions, $convertData);
         }
-
         $areMoreResults = $limit > 0 && count($convertData) > $limit;
-
         if ($areMoreResults) {
             $discussions->pop();
         }
-
-
         return new SearchResults($discussions, $areMoreResults);
     }
 
@@ -81,9 +75,9 @@ class SearchService
     // 转换数据
     function convertDiscussion($query, $limit, $offset, $sort)
     {
-        $tempData = [];
         $search = $this->searchUtils->getESearch();
-        if ($search == null) return $tempData; // do nothing
+        if ($search == null) return []; // do nothing
+        $tempData = [];
         $params = [
             "scroll" => "30s",          // 设置游标查询过期时间，不应该太长
             "size" => $limit,           // 返回多少数量的文档，作用于单个分片
@@ -147,9 +141,9 @@ class SearchService
     // 添加帖子到索引
     function addPostToIndex(Post $post)
     {
-        $posts = $this->getPostsByDiscussionId($post->discussion_id);
         $search = $this->searchUtils->getESearch();
         if ($search == null) return; // do nothing
+        $posts = $this->getPostsByDiscussionId($post->discussion_id);
         foreach ($posts as $item) {
             $doc = $this->searchUtils->buildESDocument($post->discussion, $item, $posts->count());
             $search->update($doc);
